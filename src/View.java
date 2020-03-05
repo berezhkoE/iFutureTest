@@ -22,6 +22,7 @@ public class View extends JDialog {
     private JRadioButton highlightRadioButton;
     private JButton previousButton;
     private JButton nextButton;
+    private JLabel Status;
 
     public View(Controller controller) {
         this.controller = controller;
@@ -78,8 +79,8 @@ public class View extends JDialog {
                 previousButton.setEnabled(true);
             }});
 
-        nextButton.addActionListener(e -> {highlightNext();});
-        previousButton.addActionListener(e -> {highlightPrevious();});
+        nextButton.addActionListener(e -> highlightNext());
+        previousButton.addActionListener(e -> highlightPrevious());
     }
 
     private void highlightPrevious() {
@@ -122,7 +123,9 @@ public class View extends JDialog {
     class SearchThread implements Runnable {
         @Override
         public void run() {
+            Status.setText("searching...");
             controller.searchFiles();
+            Status.setText("");
             tree.setModel(new JTree(controller.getTreeView()).getModel());
         }
     }

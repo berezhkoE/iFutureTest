@@ -1,6 +1,7 @@
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.DefaultHighlighter;
+import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.MutableTreeNode;
 import java.awt.*;
 import java.io.BufferedReader;
@@ -36,16 +37,17 @@ public class Controller {
     }
 
     public void searchFiles() {
-        FileSearcher fileSearcher = new FileSearcher(view.getDirectory(), view.getExtension(), view.getText());
-        FutureTask task = new FutureTask(fileSearcher);
+        FutureTask task = new FutureTask(new FileSearcher(view.getDirectory(), view.getExtension(), view.getText()));
         Thread thread = new Thread(task);
         thread.start();
+        DefaultMutableTreeNode tree = new DefaultMutableTreeNode();
         try {
-            fileTree = (MutableTreeNode) task.get();
+            tree = (DefaultMutableTreeNode) task.get();
         }
         catch(ExecutionException | InterruptedException e) {
             e.printStackTrace();
         }
+        fileTree = tree;
     }
 
     public MutableTreeNode getTreeView() {

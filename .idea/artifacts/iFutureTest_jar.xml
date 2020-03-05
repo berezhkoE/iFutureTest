@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="iFutureTest:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/iFutureTest_jar</output-path>
+    <root id="archive" name="iFutureTest.jar">
+      <element id="module-output" name="iFutureTest" />
+    </root>
+  </artifact>
+</component>
